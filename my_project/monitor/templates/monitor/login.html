@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Кіру</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 48px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+        }
+
+        h2 {
+            color: #1a1a2e;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* ── Подпись поля ── */
+        label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        /* ── Поле ввода ── */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dde1f0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4f6ef7;
+        }
+
+        /* ── Кнопка ── */
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4f6ef7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.85; }
+
+        .footer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .footer a { color: #4f6ef7; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Кіру</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Логин</label>
+            <input type="text" name="username" placeholder="Логинді енгізіңіз">
+
+            <label>Пароль</label>
+            <input type="password" name="password" placeholder="Парольді енгізіңіз">
+
+            <button type="submit">Кіру</button>
+        </form>
+
+        <p class="footer">
+            Аккаунт жоқ па? <a href="{% url 'register' %}">Тіркелу</a>
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project</title>
+    <style>
+        /* ── Страница ── */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4ff;
+            margin: 0;
+            padding: 30px;
+        }
+
+        /* ── Шапка ── */
+        .header {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .header h2 { margin: 0; color: #1a1a2e; }
+
+        .btn-logout {
+            background: #ff4d6d;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* ── Сообщения  ── */
+        .messages { margin-bottom: 20px; }
+
+        .messages p {
+            background: #e6f4ea;
+            color: #2d6a3f;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin: 6px 0;
+        }
+
+        /* ── Секции ── */
+        .section {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            margin-bottom: 24px;
+        }
+
+        .section h3 { margin-top: 0; color: #1a1a2e; }
+
+        /* ── Поля ввода ── */
+        label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dde1f0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 14px;
+            box-sizing: border-box;
+        }
+
+        input:focus { outline: none; border-color: #4f6ef7; }
+
+        /* ── Кнопки ── */
+        .btn {
+            padding: 9px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.85; }
+        .btn-add    { background: #4f6ef7; color: white; }
+        .btn-check  { background: #22c55e; color: white; }
+        .btn-delete { background: #ff4d6d; color: white; }
+
+        /* ── Карточка сайта ── */
+        .site-card {
+            border: 1px solid #e8ecff;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .site-card b { font-size: 16px; color: #1a1a2e; }
+        .site-card p { margin: 4px 0; color: #555; font-size: 14px; }
+
+        .site-card .actions { margin-top: 10px; display: flex; gap: 8px; }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <div class="header">
+        <h2>Қош келдіңіз, {{ user.username }}!</h2>
+        <a href="{% url 'logout' %}" class="btn-logout">Шығу</a>
+    </div>
+
+    <!-- Флеш-хабарлар -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Жаңа сайт қосу -->
+    <div class="section">
+        <h3>Жаңа сайт қосу</h3>
+        <form method="post">
+            {% csrf_token %}
+            <label>Атауы</label>
+            <input type="text" name="name" placeholder="Мысалы: Google">
+            <label>URL</label>
+            <input type="text" name="url" placeholder="https://example.com">
+            <button type="submit" name="add" class="btn btn-add">Қосу</button>
+        </form>
+    </div>
+
+    <!-- Сайттар тізімі -->
+    <div class="section">
+        <h3>Менің сайттарым</h3>
+
+        {% if websites %}
+            {% for website in websites %}
+            <div class="site-card">
+                <b>{{ website.name }}</b>
+                <p>URL: {{ website.url }}</p>
+                <p>Өзгерістер саны: {{ website.change_count }}</p>
+
+                <div class="actions">
+                    <!-- Тексеру батырмасы -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="check" value="{{ website.id }}" class="btn btn-check">
+                            Тексеру
+                        </button>
+                    </form>
+
+                    <!-- Жою батырмасы -->
+                    <form method="post" onsubmit="return confirm('Жою?')">
+                        {% csrf_token %}
+                        <button type="submit" name="delete" value="{{ website.id }}" class="btn btn-delete">
+                            Жою
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <p style="color:#888">Әлі сайт жоқ</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

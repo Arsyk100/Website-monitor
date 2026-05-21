@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сайт мониторингі</title>
+    <style>
+        /* ── Общий стиль страницы ── */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* ── Карточка по центру ── */
+        .card {
+            background: white;
+            padding: 50px 60px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* ── Кнопки-ссылки ── */
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            margin: 6px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.85; }
+
+        .btn-primary { background: #4f6ef7; color: white; }
+        .btn-outline { background: white; color: #4f6ef7; border: 2px solid #4f6ef7; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Сайт өзгерістерін бақылау</h1>
+        <p>Веб-сайттардағы өзгерістерді бақылаңыз</p>
+
+        <a href="{% url 'register' %}" class="btn btn-primary">Тіркелу</a>
+        <a href="{% url 'login' %}"    class="btn btn-outline">Кіру</a>
+    </div>
+</body>
+</html>
