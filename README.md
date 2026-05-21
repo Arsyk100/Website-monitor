@@ -12,7 +12,7 @@ A Django-based web application that automatically monitors websites for changes.
 -  User data isolation (each user sees only their own websites)
 -  CSRF protection and password hashing
 
-## 🛠️ Technologies Used
+##  Technologies Used
 | Technology | Purpose |
 |------------|---------|
 | Python 3.14 | Backend programming |
@@ -60,18 +60,8 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Features
-*User registration and login
-
-*Add websites to monitor
-
-*Check websites for changes
-
-*View change counter
-
-*Delete websites
-
  How to Use
+
 *Register - Create a new account
 
 *Login - Enter your credentials
